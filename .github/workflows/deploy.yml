@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to droplet
+        uses: appleboy/ssh-action@v1
+        with:
+          host: lumina.study
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /opt/lumina/repositories-caching
+            git pull origin main || git clone https://github.com/luminastudy/lumina-repositories-caching.git .
+            docker-compose build --no-cache
+            docker-compose up -d
+            docker-compose ps
+
+      - name: Verify deployment
+        run: |
+          sleep 30
+          curl -f https://repos.lumina.study/trpc || exit 1
