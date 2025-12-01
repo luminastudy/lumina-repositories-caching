@@ -35,8 +35,8 @@ export class HealthController {
 
   private async checkDatabase(): Promise<boolean> {
     try {
-      await this.dataSource.query({ ping: 1 })
-      return true
+      // Check if the database connection is established
+      return this.dataSource.isInitialized
     } catch {
       return false
     }
