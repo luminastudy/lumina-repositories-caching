@@ -12,7 +12,13 @@ describe('RequestDedupService', () => {
     it('should execute the function and return result', async () => {
       const fn = vi.fn().mockResolvedValue('result')
 
-      const result = await service.dedupe('github', 'org', 'repo', undefined, fn)
+      const result = await service.dedupe(
+        'github',
+        'org',
+        'repo',
+        undefined,
+        fn
+      )
 
       expect(result).toBe('result')
       expect(fn).toHaveBeenCalledTimes(1)
@@ -26,8 +32,20 @@ describe('RequestDedupService', () => {
       const fn = vi.fn().mockReturnValue(promise)
 
       // Start two concurrent requests
-      const result1Promise = service.dedupe('github', 'org', 'repo', undefined, fn)
-      const result2Promise = service.dedupe('github', 'org', 'repo', undefined, fn)
+      const result1Promise = service.dedupe(
+        'github',
+        'org',
+        'repo',
+        undefined,
+        fn
+      )
+      const result2Promise = service.dedupe(
+        'github',
+        'org',
+        'repo',
+        undefined,
+        fn
+      )
 
       // Function should only be called once
       expect(fn).toHaveBeenCalledTimes(1)
@@ -35,7 +53,10 @@ describe('RequestDedupService', () => {
       // Resolve the promise
       resolvePromise!('result')
 
-      const [result1, result2] = await Promise.all([result1Promise, result2Promise])
+      const [result1, result2] = await Promise.all([
+        result1Promise,
+        result2Promise,
+      ])
 
       // Both should get the same result
       expect(result1).toBe('result')

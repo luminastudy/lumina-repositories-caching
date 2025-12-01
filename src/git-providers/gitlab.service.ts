@@ -81,11 +81,14 @@ export class GitLabService {
       !('blocks' in parsedContent) ||
       !Array.isArray(parsedContent.blocks)
     ) {
-      throw new Error('Invalid lumina.json format: missing or invalid blocks array')
+      throw new Error(
+        'Invalid lumina.json format: missing or invalid blocks array'
+      )
     }
 
     // Get the commit SHA for this version
-    const commitSha = sha || (await this.getLatestCommitSha(organization, repository))
+    const commitSha =
+      sha || (await this.getLatestCommitSha(organization, repository))
 
     return {
       luminaJson: parsedContent as LuminaJson,

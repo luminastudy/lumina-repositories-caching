@@ -104,11 +104,14 @@ export class GitHubService {
     ) {
       luminaJson = parsedContent as LuminaJson
     } else {
-      throw new Error('Invalid lumina.json format: expected array or object with blocks property')
+      throw new Error(
+        'Invalid lumina.json format: expected array or object with blocks property'
+      )
     }
 
     // Get the commit SHA for this version
-    const commitSha = sha || (await this.getLatestCommitSha(organization, repository))
+    const commitSha =
+      sha || (await this.getLatestCommitSha(organization, repository))
 
     return {
       luminaJson,

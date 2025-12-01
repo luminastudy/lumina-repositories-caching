@@ -18,7 +18,10 @@ import { environmentConfig } from './config/environment.config.js'
       useFactory: (configService: ConfigService) => ({
         type: 'mongodb',
         url: configService.get<string>('MONGODB_URI'),
-        database: configService.get<string>('MONGODB_DATABASE', 'repositories_cache'),
+        database: configService.get<string>(
+          'MONGODB_DATABASE',
+          'repositories_cache'
+        ),
         entities: [RepositoryCache],
         synchronize: configService.get<string>('NODE_ENV') !== 'production',
         useNewUrlParser: true,

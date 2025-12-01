@@ -192,7 +192,12 @@ describe('RepositoriesService', () => {
 
       mockCacheRepository.findOne.mockResolvedValue(cachedEntry)
 
-      const result = await service.getByCommit('github', 'org', 'repo', 'abc123')
+      const result = await service.getByCommit(
+        'github',
+        'org',
+        'repo',
+        'abc123'
+      )
 
       expect(result).toEqual({
         luminaJson: mockLuminaJson,
@@ -211,7 +216,12 @@ describe('RepositoriesService', () => {
         commitSha: 'abc123',
       })
 
-      const result = await service.getByCommit('github', 'org', 'repo', 'abc123')
+      const result = await service.getByCommit(
+        'github',
+        'org',
+        'repo',
+        'abc123'
+      )
 
       expect(result).toEqual({
         luminaJson: mockLuminaJson,

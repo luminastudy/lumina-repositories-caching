@@ -8,7 +8,7 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=repositories_cache
     networks:
-      - lumina-network
+      - lumina_lumina-network
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -34,7 +34,7 @@ services:
       - FRESHNESS_TTL_MS=60000
       - CORS_ORIGIN=https://lumina.study,https://app.lumina.study
     networks:
-      - lumina-network
+      - lumina_lumina-network
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/health/ready"]
       interval: 30s
@@ -46,5 +46,5 @@ volumes:
   repositories_caching_mongodb_data:
 
 networks:
-  lumina-network:
+  lumina_lumina-network:
     external: true

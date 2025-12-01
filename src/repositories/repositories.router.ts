@@ -129,4 +129,6 @@ export class RepositoriesRouter {
   }
 }
 
-export type RepositoriesRouterType = ReturnType<RepositoriesRouter['createRouter']>
+export type RepositoriesRouterType = ReturnType<
+  RepositoriesRouter['createRouter']
+>

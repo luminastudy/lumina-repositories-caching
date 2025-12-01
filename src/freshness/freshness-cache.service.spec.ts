@@ -67,7 +67,9 @@ describe('FreshnessCacheService', () => {
       service.invalidate('github', 'org1', 'repo1')
 
       expect(service.getFreshCommitSha('github', 'org1', 'repo1')).toBeNull()
-      expect(service.getFreshCommitSha('github', 'org2', 'repo2')).toBe('def456')
+      expect(service.getFreshCommitSha('github', 'org2', 'repo2')).toBe(
+        'def456'
+      )
     })
   })
 

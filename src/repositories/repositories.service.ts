@@ -61,7 +61,9 @@ export class RepositoriesService {
     organization: string,
     repository: string
   ): Promise<CacheResult> {
-    this.logger.log(`Getting lumina.json for ${provider}:${organization}/${repository}`)
+    this.logger.log(
+      `Getting lumina.json for ${provider}:${organization}/${repository}`
+    )
 
     // Step 1: Check freshness cache
     const freshSha = this.freshnessCache.getFreshCommitSha(
@@ -112,7 +114,9 @@ export class RepositoriesService {
       )
 
       if (anyCached) {
-        this.logger.debug(`Returning stale cache for ${organization}/${repository}`)
+        this.logger.debug(
+          `Returning stale cache for ${organization}/${repository}`
+        )
         return {
           luminaJson: anyCached.content,
           commitSha: anyCached.commitSha,

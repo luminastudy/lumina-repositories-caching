@@ -73,18 +73,16 @@ export class FreshnessCacheService {
       commitSha,
       checkedAt: Date.now(),
     })
-    this.logger.debug(`Freshness cache set for ${key}: ${commitSha.substring(0, 7)}`)
+    this.logger.debug(
+      `Freshness cache set for ${key}: ${commitSha.substring(0, 7)}`
+    )
   }
 
   /**
    * Invalidate the cache for a repository
    * Call this on rate limit errors to force a fresh check next time
    */
-  invalidate(
-    provider: string,
-    organization: string,
-    repository: string
-  ): void {
+  invalidate(provider: string, organization: string, repository: string): void {
     const key = this.getKey(provider, organization, repository)
     this.cache.delete(key)
     this.logger.debug(`Freshness cache invalidated for ${key}`)

@@ -44,11 +44,10 @@ export class RequestDedupService {
     }
 
     // Create the promise and store it
-    const promise = fn()
-      .finally(() => {
-        // Clean up after completion
-        this.pending.delete(key)
-      })
+    const promise = fn().finally(() => {
+      // Clean up after completion
+      this.pending.delete(key)
+    })
 
     this.pending.set(key, promise)
     this.logger.debug(`Starting new request for ${key}`)
